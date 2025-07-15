@@ -5,8 +5,6 @@ import com.kaspersky.kaspresso.testcases.api.testcase.TestCase
 import com.kaspersky.kaspresso.tutorial.afterlogin.AfterLoginActivity
 import com.kaspersky.kaspresso.tutorial.login.LoginActivity
 import com.kaspersky.kaspresso.tutorial.scenario.LoginScenario
-import com.kaspersky.kaspresso.tutorial.screen.LoginScreen
-import com.kaspersky.kaspresso.tutorial.screen.MainScreen
 import org.junit.Rule
 import org.junit.Test
 
