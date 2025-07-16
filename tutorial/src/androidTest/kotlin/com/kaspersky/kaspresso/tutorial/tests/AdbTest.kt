@@ -1,8 +1,7 @@
-package com.kaspersky.kaspresso.tutorial
+package com.kaspersky.kaspresso.tutorial.tests
 
 import com.kaspersky.kaspresso.internal.exceptions.AdbServerException
 import com.kaspersky.kaspresso.testcases.api.testcase.TestCase
-import org.junit.Assert
 import org.junit.Assert.assertTrue
 import org.junit.Test
 

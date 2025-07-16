@@ -1,9 +1,11 @@
-package com.kaspersky.kaspresso.tutorial
+package com.kaspersky.kaspresso.tutorial.tests
 
 import android.content.res.Configuration
 import androidx.test.ext.junit.rules.activityScenarioRule
 import com.kaspersky.kaspresso.device.exploit.Exploit
 import com.kaspersky.kaspresso.testcases.api.testcase.TestCase
+import com.kaspersky.kaspresso.tutorial.MainActivity
+import com.kaspersky.kaspresso.tutorial.R
 import com.kaspersky.kaspresso.tutorial.screen.MainScreen
 import com.kaspersky.kaspresso.tutorial.screen.WifiScreen
 import org.junit.Assert.assertTrue
