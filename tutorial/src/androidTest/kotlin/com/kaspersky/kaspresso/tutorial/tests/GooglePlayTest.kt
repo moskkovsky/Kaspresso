@@ -1,4 +1,4 @@
-package com.kaspersky.kaspresso.tutorial
+package com.kaspersky.kaspresso.tutorial.tests
 
 import com.kaspersky.kaspresso.testcases.api.testcase.TestCase
 import com.kaspersky.kaspresso.tutorial.screen.GooglePlayScreen

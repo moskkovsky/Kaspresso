@@ -115,3 +115,19 @@ testLogger.i("KASPRESSO","Авторизация с данными: Username: $u
 > [!TIP]
 > В Kaspresso есть возможность во время теста делать скриншоты на любом шаге
 Для этого достаточно вызвать метод **device.screenshots.take("file_name")**
+
+Чтобы не добавлять перед/после каждо шага, добавим в конструктор тестируемого класса
+```
+kaspressoBuilder = Kaspresso.Builder.simple().apply {
+    }
+```
+В такой реализации после неудачного step будет сохранент скриншот
+
+В случае, если хотим, чтобы скрины были после каждого шага
+```
+ kaspressoBuilder = Kaspresso.Builder.simple().apply {
+        stepWatcherInterceptors.add(ScreenshotStepWatcherInterceptor(screenshots))
+    }
+```
+> [!IMPORTANT]
+> Путь до скриншотов: Переходим в Android Studio в Device File Explorer -> sdcard/Documents/screenshots

@@ -1,7 +1,9 @@
-package com.kaspersky.kaspresso.tutorial
+package com.kaspersky.kaspresso.tutorial.tests
 
 import androidx.test.ext.junit.rules.activityScenarioRule
 import com.kaspersky.kaspresso.testcases.api.testcase.TestCase
+import com.kaspersky.kaspresso.tutorial.MainActivity
+import com.kaspersky.kaspresso.tutorial.R
 import com.kaspersky.kaspresso.tutorial.scenario.LoginScenario
 import com.kaspersky.kaspresso.tutorial.screen.AfterLoginScreen
 import org.junit.Rule

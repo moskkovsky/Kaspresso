@@ -1,4 +1,4 @@
-package com.kaspersky.kaspresso.tutorial
+package com.kaspersky.kaspresso.tutorial.tests
 
 import androidx.test.ext.junit.rules.activityScenarioRule
 import com.kaspersky.kaspresso.testcases.api.testcase.TestCase
@@ -6,7 +6,8 @@ import com.kaspersky.kaspresso.tutorial.screen.MainScreen
 import android.media.AudioManager
 import android.os.Build
 import androidx.test.filters.SdkSuppress
-import androidx.test.rule.GrantPermissionRule
+import com.kaspersky.kaspresso.tutorial.MainActivity
+import com.kaspersky.kaspresso.tutorial.R
 import com.kaspersky.kaspresso.tutorial.screen.MakeCallActivityScreen
 import org.junit.Assert.assertTrue
 import org.junit.Rule
