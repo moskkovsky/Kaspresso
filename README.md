@@ -15,7 +15,7 @@ object MainScreen : KScreen<MainScreen>() {
     val simpleActivityButton = KButton { withId(R.id.simple_activity_btn) }
 }
 ```
-Перед запуском необходимо открыть начальный экран - например MainActivity.
+Перед запуском необходимо открыть экран - например MainActivity.
 ```
 @get:Rule
 val activityRule = activityScenarioRule<MainActivity>()
@@ -99,7 +99,7 @@ class LoginScenario : Scenario() {
 **UiTestLogger** - вывод сообщений в лог с тэгом "KASPRESSO_TEST" реализован под капотом. В самих тестах вам достаточно обратиться к объекту testLogger, вызвав метод с необходимым уровнем логирования.
 
 ```
-testLogger.i("KASPRESSO","Авторизация с данными: Username: $username, Password: $password")
+testLogger.i("Generated data. Username: $username, Password: $password")
 ```
 
 ## Объект device
@@ -131,3 +131,63 @@ kaspressoBuilder = Kaspresso.Builder.simple().apply {
 ```
 > [!IMPORTANT]
 > Путь до скриншотов: Переходим в Android Studio в Device File Explorer -> sdcard/Documents/screenshots
+
+## Явное и неявное ожидание
+> [!TIP]
+> Явное ожидание - ожидание с явно заданным максимальным временем (таймаутом) для конкретного элемента и условия. Если условие не выполняется за указанное время — выбрасывается исключение (например, TimeoutException).
+
+```
+flakySafely(3000) { //устанавливаем явное ожидание 3 сек }
+```
+> [!TIP]
+> Неявное ожидание - глобальная настройка драйвера, которая автоматически применяется ко всем поискам элементов (findElement, findElements). Если элемент не найден сразу, драйвер ждёт указанное время (периодически опрашивая DOM), прежде чем выбросить исключение.
+
+Threads vs flakySafely: Главное отличие, если у flakySafely установлен таймер, то при возвращении результата быстрее установочного таймера, при продолжим выполнение теста, при таймере в  Threads, будем ждать полностью установочный таймер.
+
+> [!Caution]
+В Kaspresso все проверки неявно используют метод flakySafely с каким-то таймаутом (в текущей версии Kaspresso таймаут составляет 10 секунд)
+
+## Разрешения
+Создание списка разрешений перед выполнением теста
+> [!NOTE]
+> На современных версиях ОС Android (API 23 и выше) разрешения у пользователя запрашиваются во время работы приложения посредством диалога. Но в более ранних версиях они запрашивались в момент установки приложения, а во время работы считалось, что пользователь согласился со всеми требуемыми разрешениями.
+Поэтому, если вы запускаете тест на устройствах с API ниже 23-ой версии, то никакого запроса разрешений не будет, соответственно проверка диалога не требуется.
+
+> [!WARNING]
+> Работает на SDK <=23
+```
+@get:Rule
+val grantPermissionRule: GrantPermissionRule = GrantPermissionRule.grant(
+    android.Manifest.permission.CALL_PHONE
+)
+```
+> [!WARNING]
+> **Для SDK >= 23**
+```
+device.permissions.apply {
+            flakySafely {
+                Assert.assertTrue(isDialogVisible())
+                denyViaDialog()
+            }
+        }
+```
+> [!TIP]
+> Аннотация перед тестом позволяет поставить минимальную версию SDK: **@SdkSuppress(minSdkVersion = 23)**
+
+Еще можно проверять SDK так:
+```
+if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+    step("Accept permission") {
+        device.permissions.apply {
+            flakySafely {
+                Assert.assertTrue(isDialogVisible())
+                allowViaDialog()
+            }
+        }
+    }
+}
+```
+
+Документацию по **Kaspresso** можно [посмотреть по ссылке](https://kasperskylab.github.io/Kaspresso/ru/Tutorial/)
+
+
